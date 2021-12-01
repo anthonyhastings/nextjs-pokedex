@@ -1,6 +1,6 @@
-import { Global, css, styled } from '@emotion/react';
-import Head from 'next/head';
+import { Global, css } from '@emotion/react';
 import emotionNormalize from 'emotion-normalize';
+import Head from 'next/head';
 
 const App = ({ Component, pageProps }) => (
   <>

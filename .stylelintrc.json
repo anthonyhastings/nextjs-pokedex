@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "color-hex-length": "short",
+    "order/properties-alphabetical-order": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.{js,jsx,mjs}"],
+      "customSyntax": "@stylelint/postcss-css-in-js"
+    }
+  ]
+}

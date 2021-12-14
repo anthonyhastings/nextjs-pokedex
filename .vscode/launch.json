@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Pokedex",
+      "port": 9226,
+      "request": "attach",
+      "restart": true,
+      "type": "pwa-node"
+    }
+  ]
+}

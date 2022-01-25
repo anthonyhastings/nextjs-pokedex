@@ -3,7 +3,7 @@
  */
 const nextConfig = {
   eslint: {
-    dirs: ['pages'],
+    dirs: ['components', 'pages', 'utils'],
     ignoreDuringBuilds: false,
   },
 };

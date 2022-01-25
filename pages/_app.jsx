@@ -1,11 +1,13 @@
 import { Global, css } from '@emotion/react';
 import emotionNormalize from 'emotion-normalize';
 import Head from 'next/head';
+import Layout from 'components/layout';
+import { fontFamilies } from 'utils/typography';
 
 const App = ({ Component, pageProps }) => (
   <>
     <Head>
-      <meta charset="utf-8" />
+      <meta charSet="utf-8" />
       <meta
         name="viewport"
         content="width=device-width,initial-scale=1,maximum-scale=1"
@@ -20,6 +22,10 @@ const App = ({ Component, pageProps }) => (
       <link rel="icon" href="/images/icons/favicon.ico" sizes="any" />
       <link rel="icon" href="/images/icons/icon.svg" type="image/svg+xml" />
       <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
+      <link
+        rel="stylesheet"
+        href="http://fonts.cdnfonts.com/css/pokemon-solid"
+      />
     </Head>
     <Global
       styles={css`
@@ -32,6 +38,7 @@ const App = ({ Component, pageProps }) => (
         }
 
         html {
+          font-family: ${fontFamilies.get('body')};
           font-size: ${(10 / 16) * 100}%;
           height: 100%;
           overflow-y: scroll;
@@ -48,7 +55,9 @@ const App = ({ Component, pageProps }) => (
         }
       `}
     />
-    <Component {...pageProps} />
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   </>
 );
 

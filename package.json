@@ -10,7 +10,7 @@
     "lint:js:print-config": "eslint --print-config pages/index.js",
     "lint:css": "time stylelint components/**/*.{js,jsx,mjs} pages/**/*.{js,jsx,mjs}",
     "lint:css:prettier-check": "stylelint-config-prettier-check",
-    "lint:css:print-config": "stylelint --print-config pages/index.js",
+    "lint:css:print-config": "stylelint --print-config pages/index.jsx",
     "prepare": "husky install",
     "start": "next start"
   },

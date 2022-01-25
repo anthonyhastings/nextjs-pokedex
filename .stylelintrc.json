@@ -15,5 +15,8 @@
       "files": ["**/*.{js,jsx,mjs}"],
       "customSyntax": "@stylelint/postcss-css-in-js"
     }
+  ],
+  "ignoreFiles": [
+    "**/*.{js,jsx,mjs}"
   ]
 }

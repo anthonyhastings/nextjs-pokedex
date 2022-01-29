@@ -14,14 +14,21 @@ const App = ({ Component, pageProps }) => (
       />
       <meta
         name="description"
-        content="An example pokedex application for the Kanto region built using NextJS."
+        content="A pokedex application for the Kanto region built using NextJS / React / Emotion."
       />
       <meta name="theme-color" content="#3C5AA6" />
       <title>Pokedex</title>
       <link rel="manifest" href="/manifest.webmanifest" />
-      <link rel="icon" href="/images/icons/favicon.ico" sizes="any" />
-      <link rel="icon" href="/images/icons/icon.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
+      <link rel="icon" href="/images/manifest-icons/favicon.ico" sizes="any" />
+      <link
+        rel="icon"
+        href="/images/manifest-icons/icon.svg"
+        type="image/svg+xml"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/images/manifest-icons/apple-touch-icon.png"
+      />
       <link
         rel="stylesheet"
         href="http://fonts.cdnfonts.com/css/pokemon-solid"

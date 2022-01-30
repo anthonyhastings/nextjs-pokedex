@@ -1,11 +1,12 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
+import useLocalStorage from 'utils/hooks/use-local-storage';
 import { primaryTheme, alternateTheme } from 'utils/themes';
 import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
 import { fontFamilies, typeScale } from 'utils/typography';
 import AspectRatioImage from 'components/aspect-ratio-image';
-import ThemeSwitcher from 'components/theme-switcher/theme-switcher';
+import ThemeSwitcher from 'components/theme-switcher';
 import PokeballComponent from 'public/images/logo.svg';
 
 const AppWrapper = styled.div`
@@ -53,14 +54,31 @@ const Main = styled.main`
 `;
 
 const Layout = ({ children }) => {
-  const [isAlternateTheme, setIsAlternateTheme] = useState(false);
+  // NextJS will error if server renders one way, and client initially hydrates in another way.
+  // This can happen when useLocalStorage on the server always uses the fallback, but the client
+  // potentially hydrates from storage with a different value. To combat this, the mounted flag
+  // gets taken into consideration so initial hydration always matches the server. After that,
+  // the next render cycle will update the client-side application and real local storage value
+  // into consideration.
+  const [hasMounted, setHasMounted] = useState(false);
+
+  const [isAlternateTheme, setIsAlternateTheme] = useLocalStorage(
+    'isAlternateTheme',
+    false
+  );
 
   const onThemeChange = useCallback(() => {
     setIsAlternateTheme((currentTheme) => !currentTheme);
+  }, [setIsAlternateTheme]);
+
+  useEffect(() => {
+    setHasMounted(true);
   }, []);
 
   return (
-    <ThemeProvider theme={isAlternateTheme ? alternateTheme : primaryTheme}>
+    <ThemeProvider
+      theme={hasMounted && isAlternateTheme ? alternateTheme : primaryTheme}
+    >
       <AppWrapper>
         <AppHeader>
           <SiteTitle>Pokedex</SiteTitle>
@@ -68,7 +86,7 @@ const Layout = ({ children }) => {
             <PokeballComponent />
           </LogoWrapper>
           <ThemeSwitcher
-            darkModeEnabled={isAlternateTheme}
+            darkModeEnabled={hasMounted && isAlternateTheme}
             onClick={onThemeChange}
           />
         </AppHeader>

@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
-import Image from 'next/image';
+import { ThemeProvider } from '@emotion/react';
+import { primaryTheme, alternateTheme } from 'utils/themes';
+import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
 import { fontFamilies, typeScale } from 'utils/typography';
-import pokeball from 'public/images/logo.svg';
+import AspectRatioImage from 'components/aspect-ratio-image';
+import PokeballComponent from 'public/images/logo.svg';
 
 const AppWrapper = styled.div`
   align-items: stretch;
@@ -13,26 +17,27 @@ const AppWrapper = styled.div`
 
 const AppHeader = styled.header`
   align-items: center;
-  background-color: #3c5aa6;
-  border-bottom: 1rem solid #ffcb05;
+  background-color: ${({ theme }) => theme.headerBackgroundColor};
+  border-bottom: 1rem solid ${secondaryColors.get(500)};
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 10rem;
   justify-content: center;
   position: relative;
+  transition: background-color 200ms;
 `;
 
 const SiteTitle = styled.h1`
-  color: #ffcb05;
+  color: ${secondaryColors.get(500)};
   font-family: ${fontFamilies.get('headline')};
   font-size: ${typeScale.get('header1')};
   line-height: 1;
-  -webkit-text-stroke: 0.2rem #243970;
+  -webkit-text-stroke: 0.2rem ${primaryColors.get(600)};
 `;
 
-const LogoWrapper = styled.div`
+const LogoWrapper = styled(AspectRatioImage)`
   bottom: -4.5rem;
-  filter: drop-shadow(0.3rem 0.3rem 0.7rem #000);
+  filter: drop-shadow(0.3rem 0.3rem 0.7rem ${neutralColors.get(500)});
   left: 50%;
   max-width: 7rem;
   position: absolute;
@@ -41,20 +46,26 @@ const LogoWrapper = styled.div`
 `;
 
 const Main = styled.main`
+  background-color: ${({ theme }) => theme.pageBackgroundColor};
   flex: 1 1 auto;
+  transition: background-color 200ms;
 `;
 
 const Layout = ({ children }) => {
+  const [isAlternateTheme] = useState(false);
+
   return (
-    <AppWrapper>
-      <AppHeader>
-        <SiteTitle>Pokedex</SiteTitle>
-        <LogoWrapper>
-          <Image src={pokeball} alt="Pokeball" unoptimized={true} />
-        </LogoWrapper>
-      </AppHeader>
-      <Main>{children}</Main>
-    </AppWrapper>
+    <ThemeProvider theme={isAlternateTheme ? alternateTheme : primaryTheme}>
+      <AppWrapper>
+        <AppHeader>
+          <SiteTitle>Pokedex</SiteTitle>
+          <LogoWrapper ratio="1 / 1">
+            <PokeballComponent />
+          </LogoWrapper>
+        </AppHeader>
+        <Main>{children}</Main>
+      </AppWrapper>
+    </ThemeProvider>
   );
 };
 

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import { primaryTheme, alternateTheme } from 'utils/themes';
 import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
 import { fontFamilies, typeScale } from 'utils/typography';
 import AspectRatioImage from 'components/aspect-ratio-image';
+import ThemeSwitcher from 'components/theme-switcher/theme-switcher';
 import PokeballComponent from 'public/images/logo.svg';
 
 const AppWrapper = styled.div`
@@ -52,7 +53,11 @@ const Main = styled.main`
 `;
 
 const Layout = ({ children }) => {
-  const [isAlternateTheme] = useState(false);
+  const [isAlternateTheme, setIsAlternateTheme] = useState(false);
+
+  const onThemeChange = useCallback(() => {
+    setIsAlternateTheme((currentTheme) => !currentTheme);
+  }, []);
 
   return (
     <ThemeProvider theme={isAlternateTheme ? alternateTheme : primaryTheme}>
@@ -62,6 +67,10 @@ const Layout = ({ children }) => {
           <LogoWrapper ratio="1 / 1">
             <PokeballComponent />
           </LogoWrapper>
+          <ThemeSwitcher
+            darkModeEnabled={isAlternateTheme}
+            onClick={onThemeChange}
+          />
         </AppHeader>
         <Main>{children}</Main>
       </AppWrapper>

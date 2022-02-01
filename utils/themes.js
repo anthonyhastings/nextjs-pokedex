@@ -11,6 +11,7 @@ export const primaryTheme = {
   primaryActiveBorderColor: primaryColors.get(500),
   disabledColor: neutralColors.get(500),
   disabledBorderColor: neutralColors.get(600),
+  textColor: textColors.get('default'),
   textColorOnPrimary: textColors.get('inverted'),
 };
 
@@ -25,5 +26,6 @@ export const alternateTheme = {
   primaryActiveBorderColor: primaryColors.get(100),
   disabledColor: neutralColors.get(500),
   disabledBorderColor: neutralColors.get(400),
+  textColor: textColors.get('inverted'),
   textColorOnPrimary: textColors.get('inverted'),
 };

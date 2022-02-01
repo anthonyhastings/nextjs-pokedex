@@ -1,8 +1,5 @@
-import { Global, css } from '@emotion/react';
-import emotionNormalize from 'emotion-normalize';
 import Head from 'next/head';
 import Layout from 'components/layout';
-import { fontFamilies } from 'utils/typography';
 
 const App = ({ Component, pageProps }) => (
   <>
@@ -34,34 +31,6 @@ const App = ({ Component, pageProps }) => (
         href="http://fonts.cdnfonts.com/css/pokemon-solid"
       />
     </Head>
-    <Global
-      styles={css`
-        ${emotionNormalize}
-
-        *,
-          *::after,
-          *::before {
-          box-sizing: border-box;
-        }
-
-        html {
-          font-family: ${fontFamilies.get('body')};
-          font-size: ${(10 / 16) * 100}%;
-          height: 100%;
-          overflow-y: scroll;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p {
-          margin: 0;
-        }
-      `}
-    />
     <Layout>
       <Component {...pageProps} />
     </Layout>

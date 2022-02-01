@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import useLocalStorage from 'utils/hooks/use-local-storage';
-import { primaryTheme, alternateTheme } from 'utils/themes';
 import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
+import { primaryTheme, alternateTheme } from 'utils/themes';
 import { fontFamilies, typeScale } from 'utils/typography';
 import AspectRatioImage from 'components/aspect-ratio-image';
 import ThemeSwitcher from 'components/theme-switcher';
 import PokeballComponent from 'public/images/logo.svg';
+import GlobalStyles from './global-styles';
 
 const AppWrapper = styled.div`
   align-items: stretch;
@@ -71,14 +72,15 @@ const Layout = ({ children }) => {
     setIsAlternateTheme((currentTheme) => !currentTheme);
   }, [setIsAlternateTheme]);
 
+  const theme = hasMounted && isAlternateTheme ? alternateTheme : primaryTheme;
+
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
   return (
-    <ThemeProvider
-      theme={hasMounted && isAlternateTheme ? alternateTheme : primaryTheme}
-    >
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <AppWrapper>
         <AppHeader>
           <SiteTitle>Pokedex</SiteTitle>

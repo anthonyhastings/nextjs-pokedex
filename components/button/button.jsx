@@ -61,7 +61,7 @@ export const PrimaryButton = styled(Button)`
 `;
 
 export const TertiaryButton = styled(Button)`
-  color: #000;
+  color: ${({ theme }) => theme.textColor};
   display: inline-flex;
   font-size: ${typeScale.get('paragraph')};
   text-decoration: none;

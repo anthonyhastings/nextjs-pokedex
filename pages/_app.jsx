@@ -1,8 +1,5 @@
-import { Global, css } from '@emotion/react';
-import emotionNormalize from 'emotion-normalize';
 import Head from 'next/head';
 import Layout from 'components/layout';
-import { fontFamilies } from 'utils/typography';
 
 const App = ({ Component, pageProps }) => (
   <>
@@ -14,47 +11,26 @@ const App = ({ Component, pageProps }) => (
       />
       <meta
         name="description"
-        content="An example pokedex application for the Kanto region built using NextJS."
+        content="A pokedex application for the Kanto region built using NextJS / React / Emotion."
       />
       <meta name="theme-color" content="#3C5AA6" />
       <title>Pokedex</title>
       <link rel="manifest" href="/manifest.webmanifest" />
-      <link rel="icon" href="/images/icons/favicon.ico" sizes="any" />
-      <link rel="icon" href="/images/icons/icon.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
+      <link rel="icon" href="/images/manifest-icons/favicon.ico" sizes="any" />
+      <link
+        rel="icon"
+        href="/images/manifest-icons/icon.svg"
+        type="image/svg+xml"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/images/manifest-icons/apple-touch-icon.png"
+      />
       <link
         rel="stylesheet"
         href="http://fonts.cdnfonts.com/css/pokemon-solid"
       />
     </Head>
-    <Global
-      styles={css`
-        ${emotionNormalize}
-
-        *,
-          *::after,
-          *::before {
-          box-sizing: border-box;
-        }
-
-        html {
-          font-family: ${fontFamilies.get('body')};
-          font-size: ${(10 / 16) * 100}%;
-          height: 100%;
-          overflow-y: scroll;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p {
-          margin: 0;
-        }
-      `}
-    />
     <Layout>
       <Component {...pageProps} />
     </Layout>

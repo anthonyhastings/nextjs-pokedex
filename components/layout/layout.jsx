@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import useLocalStorage from 'utils/hooks/use-local-storage';
+import useMounted from 'utils/hooks/use-mounted';
 import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
 import { primaryTheme, alternateTheme } from 'utils/themes';
 import { fontFamilies, typeScale } from 'utils/typography';
@@ -61,7 +62,7 @@ const Layout = ({ children }) => {
   // gets taken into consideration so initial hydration always matches the server. After that,
   // the next render cycle will update the client-side application and real local storage value
   // into consideration.
-  const [hasMounted, setHasMounted] = useState(false);
+  const isMounted = useMounted();
 
   const [isAlternateTheme, setIsAlternateTheme] = useLocalStorage(
     'isAlternateTheme',
@@ -72,11 +73,7 @@ const Layout = ({ children }) => {
     setIsAlternateTheme((currentTheme) => !currentTheme);
   }, [setIsAlternateTheme]);
 
-  const theme = hasMounted && isAlternateTheme ? alternateTheme : primaryTheme;
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  const theme = isMounted && isAlternateTheme ? alternateTheme : primaryTheme;
 
   return (
     <ThemeProvider theme={theme}>
@@ -88,7 +85,7 @@ const Layout = ({ children }) => {
             <PokeballComponent />
           </LogoWrapper>
           <ThemeSwitcher
-            darkModeEnabled={hasMounted && isAlternateTheme}
+            darkModeEnabled={isMounted && isAlternateTheme}
             onClick={onThemeChange}
           />
         </AppHeader>

@@ -13,6 +13,7 @@ import GlobalStyles from './global-styles';
 
 const AppWrapper = styled.div`
   align-items: stretch;
+  background-color: ${({ theme }) => theme.pageBackgroundColor};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -49,10 +50,13 @@ const LogoWrapper = styled(AspectRatioImage)`
   width: 50%;
 `;
 
-const Main = styled.main`
-  background-color: ${({ theme }) => theme.pageBackgroundColor};
+const AppContent = styled.main`
   flex: 1 1 auto;
+  margin: 0 auto;
+  max-width: 90rem;
+  padding: 4rem 3rem;
   transition: background-color 200ms;
+  width: 100%;
 `;
 
 const Layout = ({ children }) => {
@@ -89,7 +93,7 @@ const Layout = ({ children }) => {
             onClick={onThemeChange}
           />
         </AppHeader>
-        <Main>{children}</Main>
+        <AppContent>{children}</AppContent>
       </AppWrapper>
     </ThemeProvider>
   );

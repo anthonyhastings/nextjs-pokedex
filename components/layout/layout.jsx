@@ -51,7 +51,11 @@ const LogoWrapper = styled(AspectRatioImage)`
 `;
 
 const AppContent = styled.main`
+  align-items: stretch;
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-start;
   margin: 0 auto;
   max-width: 90rem;
   padding: 4rem 3rem;

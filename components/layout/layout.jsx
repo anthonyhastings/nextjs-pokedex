@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import useLocalStorage from 'utils/hooks/use-local-storage';
+import useMounted from 'utils/hooks/use-mounted';
 import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
 import { primaryTheme, alternateTheme } from 'utils/themes';
 import { fontFamilies, typeScale } from 'utils/typography';
@@ -12,6 +13,7 @@ import GlobalStyles from './global-styles';
 
 const AppWrapper = styled.div`
   align-items: stretch;
+  background-color: ${({ theme }) => theme.pageBackgroundColor};
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -48,10 +50,17 @@ const LogoWrapper = styled(AspectRatioImage)`
   width: 50%;
 `;
 
-const Main = styled.main`
-  background-color: ${({ theme }) => theme.pageBackgroundColor};
+const AppContent = styled.main`
+  align-items: stretch;
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: 90rem;
+  padding: 4rem 3rem;
   transition: background-color 200ms;
+  width: 100%;
 `;
 
 const Layout = ({ children }) => {
@@ -61,7 +70,7 @@ const Layout = ({ children }) => {
   // gets taken into consideration so initial hydration always matches the server. After that,
   // the next render cycle will update the client-side application and real local storage value
   // into consideration.
-  const [hasMounted, setHasMounted] = useState(false);
+  const isMounted = useMounted();
 
   const [isAlternateTheme, setIsAlternateTheme] = useLocalStorage(
     'isAlternateTheme',
@@ -72,11 +81,7 @@ const Layout = ({ children }) => {
     setIsAlternateTheme((currentTheme) => !currentTheme);
   }, [setIsAlternateTheme]);
 
-  const theme = hasMounted && isAlternateTheme ? alternateTheme : primaryTheme;
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  const theme = isMounted && isAlternateTheme ? alternateTheme : primaryTheme;
 
   return (
     <ThemeProvider theme={theme}>
@@ -88,11 +93,11 @@ const Layout = ({ children }) => {
             <PokeballComponent />
           </LogoWrapper>
           <ThemeSwitcher
-            darkModeEnabled={hasMounted && isAlternateTheme}
+            darkModeEnabled={isMounted && isAlternateTheme}
             onClick={onThemeChange}
           />
         </AppHeader>
-        <Main>{children}</Main>
+        <AppContent>{children}</AppContent>
       </AppWrapper>
     </ThemeProvider>
   );

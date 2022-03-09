@@ -5,6 +5,7 @@ import AspectRatioImage from 'components/aspect-ratio-image';
 import { PrimaryButton } from 'components/button';
 import { H2, Paragraph } from 'components/typography';
 import { spacing } from 'utils/typography';
+import * as breakpoints from 'utils/breakpoints';
 
 const PageWrapper = styled('div')`
   align-items: center;
@@ -12,18 +13,29 @@ const PageWrapper = styled('div')`
   flex-direction: column;
   flex: 1 1 auto;
   justify-content: flex-start;
+
+  ${breakpoints.up('lg')} {
+    flex-direction: row;
+    justify-content: stretch;
+  }
 `;
 
 const PokedexWrapper = styled(AspectRatioImage)`
   margin-bottom: ${spacing.get(3)};
   width: 50%;
+
+  ${breakpoints.up('lg')} {
+    margin-bottom: 0;
+    margin-right: ${spacing.get(4)};
+    width: 44%;
+  }
 `;
 
 const CopyContentWrapper = styled('div')`
   align-items: center;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1 1 0;
   justify-content: flex-start;
   text-align: center;
 `;

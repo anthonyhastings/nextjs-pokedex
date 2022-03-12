@@ -57,7 +57,7 @@ const Home = () => {
         </PokedexWrapper>
 
         <CopyContentWrapper>
-          <H2>Kanto Region Pokedex</H2>
+          <H2>Next.js Pokedex</H2>
           <IntroParagraph>
             This is a personal project in order to learn more about Next.js. The
             main aim is to compare static rendering with server-side rendering.

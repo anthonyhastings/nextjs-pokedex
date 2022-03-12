@@ -1,13 +1,15 @@
 import { useCallback } from 'react';
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import useLocalStorage from 'utils/hooks/use-local-storage';
 import useMounted from 'utils/hooks/use-mounted';
 import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
 import { primaryTheme, alternateTheme } from 'utils/themes';
-import { fontFamilies, typeScale } from 'utils/typography';
+import { fontFamilies } from 'utils/typography';
 import AspectRatioImage from 'components/aspect-ratio-image';
 import ThemeSwitcher from 'components/theme-switcher';
+import { H1 } from 'components/typography';
 import PokeballComponent from 'public/images/logo.svg';
 import GlobalStyles from './global-styles';
 
@@ -32,11 +34,15 @@ const AppHeader = styled.header`
   transition: background-color 200ms;
 `;
 
-const SiteTitle = styled.h1`
+const SiteTitle = styled(H1)`
+  margin: 0;
+`;
+
+const SiteTitleLink = styled('a')`
   color: ${secondaryColors.get(500)};
+  display: block;
   font-family: ${fontFamilies.get('headline')};
-  font-size: ${typeScale.get('header1')};
-  line-height: 1;
+  text-decoration: none;
   -webkit-text-stroke: 0.2rem ${primaryColors.get(600)};
 `;
 
@@ -88,7 +94,11 @@ const Layout = ({ children }) => {
       <GlobalStyles />
       <AppWrapper>
         <AppHeader>
-          <SiteTitle>Pokedex</SiteTitle>
+          <SiteTitle>
+            <Link href="/" passHref>
+              <SiteTitleLink>Pokedex</SiteTitleLink>
+            </Link>
+          </SiteTitle>
           <LogoWrapper ratio="1 / 1">
             <PokeballComponent />
           </LogoWrapper>

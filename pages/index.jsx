@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import AspectRatioImage from 'components/aspect-ratio-image';
-import { PrimaryButton } from 'components/button';
+import { PrimaryButtonLink } from 'components/button';
 import { H2, Paragraph } from 'components/typography';
 import { spacing } from 'utils/typography';
 import * as breakpoints from 'utils/breakpoints';
@@ -65,7 +65,7 @@ const Home = () => {
             is statically generated at build time.
           </IntroParagraph>
           <Link href="/pokemon" passHref>
-            <PrimaryButton size="large">Go to Pokedex</PrimaryButton>
+            <PrimaryButtonLink size="large">Go to Pokedex</PrimaryButtonLink>
           </Link>
         </CopyContentWrapper>
       </PageWrapper>

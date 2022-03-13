@@ -66,6 +66,10 @@ export const PrimaryButton = styled(Button)`
   }
 `;
 
+export const PrimaryButtonLink = styled(PrimaryButton)`
+  text-decoration: none;
+`.withComponent('a');
+
 export const TertiaryButton = styled(Button)`
   color: ${({ theme }) => theme.textColor};
   display: inline-flex;

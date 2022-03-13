@@ -10,6 +10,12 @@ const applyPrimaryButtonSizeStyles = ({ size = 'small' }) => {
         padding: 0.6rem 1.5rem;
       `;
     }
+    case 'medium': {
+      return css`
+        font-size: ${typeScale.get('header6')};
+        padding: 0.9rem 2.2rem;
+      `;
+    }
     case 'large': {
       return css`
         font-size: ${typeScale.get('header4')};

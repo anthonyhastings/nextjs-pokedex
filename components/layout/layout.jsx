@@ -34,10 +34,6 @@ const AppHeader = styled.header`
   transition: background-color 200ms;
 `;
 
-const SiteTitle = styled(H1)`
-  margin: 0;
-`;
-
 const SiteTitleLink = styled('a')`
   color: ${secondaryColors.get(500)};
   display: block;
@@ -94,11 +90,11 @@ const Layout = ({ children }) => {
       <GlobalStyles />
       <AppWrapper>
         <AppHeader>
-          <SiteTitle>
+          <H1 mb={0}>
             <Link href="/" passHref>
               <SiteTitleLink>Pokedex</SiteTitleLink>
             </Link>
-          </SiteTitle>
+          </H1>
           <LogoWrapper ratio="1 / 1">
             <PokeballComponent />
           </LogoWrapper>

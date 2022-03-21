@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import AspectRatioImage from 'components/aspect-ratio-image';
 import { PrimaryButtonLink } from 'components/button';
 import { H2, H3 } from 'components/typography';
-import { fetchKantoPokemon } from 'services/pokedex';
+import { fetchKantoPokemon } from 'services/pokeapi';
 import { spacing, typeScale } from 'utils/typography';
 
 const GridContainer = styled('div')`

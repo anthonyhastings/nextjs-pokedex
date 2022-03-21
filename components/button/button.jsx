@@ -79,7 +79,7 @@ export const TertiaryButton = styled(Button)`
   &::before {
     content: '🔗';
     display: inline-block;
-    margin-right: 0.2rem;
+    margin-right: 0.5rem;
   }
 
   &:hover,

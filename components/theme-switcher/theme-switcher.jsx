@@ -6,8 +6,8 @@ import { primaryColors, secondaryColors } from 'utils/colors';
 
 const ControlWrapper = styled.button`
   background-color: ${primaryColors.get(600)};
-  border-radius: 50%;
   border: 0.3rem solid ${primaryColors.get(600)};
+  border-radius: 50%;
   color: ${secondaryColors.get(500)};
   cursor: pointer;
   padding: 0.3rem;

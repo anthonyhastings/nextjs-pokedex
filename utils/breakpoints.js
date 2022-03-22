@@ -2,6 +2,8 @@ import Decimal from 'decimal.js-light';
 
 const downwardStep = 0.5;
 
+// Media queries declarations do not base themselves on the declared font-size
+// that you apply to html and instead always use the default size of 16px.
 const unit = 'px';
 
 const breakpoints = new Map([

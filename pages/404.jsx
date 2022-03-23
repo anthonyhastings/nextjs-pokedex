@@ -12,7 +12,7 @@ const PageWrapper = styled('div')`
 const PageNotFound = () => {
   return (
     <PageWrapper>
-      <H2>404 | Page Not Found</H2>
+      <H2 mb={0}>404 | Page Not Found</H2>
     </PageWrapper>
   );
 };

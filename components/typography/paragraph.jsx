@@ -5,8 +5,8 @@ import marginSpacing from './margin-spacing';
 
 export const Paragraph = styled.p`
   font-size: ${typeScale.get('paragraph')};
-  margin-bottom: ${spacing.get(2)};
   line-height: 1.5;
+  margin-bottom: ${spacing.get(2)};
   ${marginSpacing}
   ${paddingSpacing}
 `;

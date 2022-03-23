@@ -58,8 +58,7 @@ const HeaderWrapper = styled('header')`
 const ChipWrapper = styled('div')`
   align-items: center;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   gap: 1rem;
   justify-content: flex-start;
 `;
@@ -130,11 +129,11 @@ const StatFill = styled('div')`
   align-items: center;
   background-color: ${({ theme }) => theme.primaryHoverColor};
   display: flex;
+  flex-direction: row;
   font-size: ${typeScale.get('paragraph')};
   font-weight: 700;
-  flex-direction: row;
-  justify-content: flex-start;
   height: 100%;
+  justify-content: flex-start;
   padding: 0 1.3rem;
 `;
 
@@ -143,11 +142,10 @@ const ProfileWrapper = styled('div')``;
 const DescriptionList = styled('dl')`
   align-items: flex-start;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   font-size: ${typeScale.get('paragraph')};
-  justify-content: flex-start;
   gap: 0.8rem;
+  justify-content: flex-start;
   margin: 0 0 ${spacing.get(2)} 0;
 
   ${breakpoints.up('md')} {

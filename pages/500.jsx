@@ -12,7 +12,7 @@ const PageWrapper = styled('div')`
 const InternalServerError = () => {
   return (
     <PageWrapper>
-      <H2>500 | Error Occurred</H2>
+      <H2 mb={0}>500 | Error Occurred</H2>
     </PageWrapper>
   );
 };

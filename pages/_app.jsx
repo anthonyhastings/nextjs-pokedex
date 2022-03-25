@@ -28,7 +28,7 @@ const App = ({ Component, pageProps }) => (
       />
       <link
         rel="stylesheet"
-        href="http://fonts.cdnfonts.com/css/pokemon-solid"
+        href="https://fonts.cdnfonts.com/css/pokemon-solid"
       />
     </Head>
     <Layout>

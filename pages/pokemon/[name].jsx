@@ -9,6 +9,8 @@ import { textColors } from 'utils/colors';
 import { spacing, typeScale } from 'utils/typography';
 
 export const getServerSideProps = async (context) => {
+  console.log('Pokemon Details Page - getServerSideProps', context.params.name);
+
   const pokemon = await fetchPokemon({
     slug: context.params.name,
     includeTypes: true,

@@ -35,6 +35,8 @@ const GridItemImage = styled(AspectRatioImage)`
 `;
 
 export const getStaticProps = async () => {
+  console.log('\nPokemon Listings Page - getStaticProps');
+
   const kantoPokemon = await fetchKantoPokemon();
 
   return {

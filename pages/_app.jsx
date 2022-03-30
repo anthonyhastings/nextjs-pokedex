@@ -26,10 +26,6 @@ const App = ({ Component, pageProps }) => (
         rel="apple-touch-icon"
         href="/images/manifest-icons/apple-touch-icon.png"
       />
-      <link
-        rel="stylesheet"
-        href="https://fonts.cdnfonts.com/css/pokemon-solid"
-      />
     </Head>
     <Layout>
       <Component {...pageProps} />

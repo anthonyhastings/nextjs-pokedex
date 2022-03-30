@@ -4,13 +4,13 @@ import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import useLocalStorage from 'utils/hooks/use-local-storage';
 import useMounted from 'utils/hooks/use-mounted';
-import { neutralColors, primaryColors, secondaryColors } from 'utils/colors';
+import { neutralColors, secondaryColors } from 'utils/colors';
 import { primaryTheme, alternateTheme } from 'utils/themes';
-import { fontFamilies } from 'utils/typography';
 import AspectRatioImage from 'components/aspect-ratio-image';
 import ThemeSwitcher from 'components/theme-switcher';
 import { H1 } from 'components/typography';
 import PokeballComponent from 'public/images/logo.svg';
+import PokedexTextComponent from 'public/images/pokedex-text.svg';
 import GlobalStyles from './global-styles';
 
 const AppWrapper = styled.div`
@@ -34,12 +34,10 @@ const AppHeader = styled.header`
   transition: background-color 200ms;
 `;
 
-const SiteTitleLink = styled('a')`
-  color: ${secondaryColors.get(500)};
+const SiteTitle = styled.a`
   display: block;
-  font-family: ${fontFamilies.get('headline')};
-  text-decoration: none;
-  -webkit-text-stroke: 0.2rem ${primaryColors.get(600)};
+  font-size: 0;
+  width: 20rem;
 `;
 
 const LogoWrapper = styled(AspectRatioImage)`
@@ -90,12 +88,14 @@ const Layout = ({ children }) => {
       <GlobalStyles />
       <AppWrapper>
         <AppHeader>
-          <H1 mb={0}>
+          <H1 mb={1}>
             <Link href="/" passHref>
-              <SiteTitleLink>Pokedex</SiteTitleLink>
+              <SiteTitle aria-label="Pokedex">
+                <PokedexTextComponent aria-hidden={true} />
+              </SiteTitle>
             </Link>
           </H1>
-          <LogoWrapper ratio="1 / 1">
+          <LogoWrapper aria-hidden={true} ratio="1 / 1">
             <PokeballComponent />
           </LogoWrapper>
           <ThemeSwitcher

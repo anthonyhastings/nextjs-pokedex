@@ -13,7 +13,7 @@ const GridContainer = styled('div')`
   grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
 `;
 
-const GridItem = styled('div')`
+const GridItem = styled('article')`
   align-items: stretch;
   border: 0.5rem solid ${({ theme }) => theme.primaryBorderColor};
   display: flex;
@@ -62,6 +62,7 @@ const PokedexListingsPage = ({ kantoPokemon }) => {
             <GridItemImage ratio="1 / 1">
               <img
                 alt={`Image of ${pokemon.name}`}
+                aria-hidden={true}
                 draggable={false}
                 loading="lazy"
                 src={pokemon.sprite}

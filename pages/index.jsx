@@ -52,7 +52,7 @@ const Home = () => {
       </Head>
 
       <PageWrapper>
-        <PokedexWrapper ratio="1.22 / 1">
+        <PokedexWrapper aria-hidden={true} ratio="1.22 / 1">
           <img src="/images/pokedex.png" alt="Pokedex" />
         </PokedexWrapper>
 

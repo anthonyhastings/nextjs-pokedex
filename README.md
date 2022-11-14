@@ -12,10 +12,10 @@ This repository is a simple Pokedex application built using Next.js primarily to
 
 Next.js is a framework which can be used to build React applications. Some highlights of what it offers are as follows:
 
-  - Acts as a bundler, optimizing code for production environments via tree shaking and code splitting.
-  - Includes a page-based routing system driven on the file structure within the `pages/` directory.
-  - Developer tooling including an environment using Fast Refresh support, along with other tooling for linting and profiling bundles.
-  - Offers various methods of pre-rendering; these have the benefit of assisting in Search Engine Optimization. These methods can also benefit from using environment variables and using server-side code for tasks like connecting to data stores.
+- Acts as a bundler, optimizing code for production environments via tree shaking and code splitting.
+- Includes a page-based routing system driven on the file structure within the `pages/` directory.
+- Developer tooling including an environment using Fast Refresh support, along with other tooling for linting and profiling bundles.
+- Offers various methods of pre-rendering; these have the benefit of assisting in Search Engine Optimization. These methods can also benefit from using environment variables and using server-side code for tasks like connecting to data stores.
 
 ### Pre-rendering
 
@@ -29,7 +29,7 @@ Both of these async methods will only be called on the server-side and never run
 
 #### When to use one over the other?
 
-If you can pre-render the page ahead of a users request, then you should choose Static Generation. 
+If you can pre-render the page ahead of a users request, then you should choose Static Generation.
 
 If your page has frequently changing data, data specific to a user, or content that would change on every request, then choose Server-Side Rendering. This method of rendering will be slower, but the pre-rendered page will always be up-to-date. An alternative would be to skip pre-rendering and use client-side logic to fetch data and populate the page.
 
@@ -38,19 +38,20 @@ If your page has frequently changing data, data specific to a user, or content t
 This application uses Next.js for static and server-side rendering, routing and so on. Styling is handled by Emotion and has a small design system in place for type scales, spacing, breakpoints, colours and theming. The pages of the application have been created with the idea of demonstrating the various pre-rendering methods:
 
 - **Landing Page**
-    - Explains the project and links to the pokedex listings page.
-    - (SG) Statically rendered at **build time** without any additional data.
-    - This method has been chosen because the page content will never change; it can be built once and re-served.
+  - Explains the project and links to the pokedex listings page.
+  - (SG) Statically rendered at **build time** without any additional data.
+  - This method has been chosen because the page content will never change; it can be built once and re-served.
 - **Listings Page**
-    - Displays a grid of Kanto region pokemon each linking to that pokemons details page.
-    - (SG) Statically rendered at **build time** with external data from PokeAPI (via `getStaticProps`).
-    - This method has been chosen because despite needing external data, page content is generic and will rarely change. There are also **a lot** of API requests needed to fully render it, and these can be done once at build time to stop potential rate limiting if the page were rendered at request time.
+  - Displays a grid of Kanto region pokemon each linking to that pokemons details page.
+  - (SG) Statically rendered at **build time** with external data from PokeAPI (via `getStaticProps`).
+  - This method has been chosen because despite needing external data, page content is generic and will rarely change. There are also **a lot** of API requests needed to fully render it, and these can be done once at build time to stop potential rate limiting if the page were rendered at request time.
 - **Details Page**
-    - Describes and profiles the pokemon including stats, types and sprites.
-    - (SSR) Server-side rendered at **request time** with external data (via `getServerSideProps`) based on a slug in the URL.
-    - This method has been chosen because it requires data from the path / url in order to fetch external data unique to that pokemon. We _could_ statically render this data, as it doesn't change often, but it would be over 150 pages being output with each page needing 3 API requests to populate it.
+  - Describes and profiles the pokemon including stats, types and sprites.
+  - (SSR) Server-side rendered at **request time** with external data (via `getServerSideProps`) based on a slug in the URL.
+  - This method has been chosen because it requires data from the path / url in order to fetch external data unique to that pokemon. We _could_ statically render this data, as it doesn't change often, but it would be over 150 pages being output with each page needing 3 API requests to populate it.
 
 Output from build command showing different rendering techniques utilised:
+
 ```bash
 $ next build
 info  - Checking validity of types
@@ -83,6 +84,7 @@ Page                                       Size     First Load JS
 ```
 
 ## Further Information
+
 - [What is Next.js?](https://nextjs.org/learn/foundations/about-nextjs/what-is-nextjs)
 - [Two Forms of Pre-rendering](https://nextjs.org/learn/basics/data-fetching/two-forms)
 - [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)

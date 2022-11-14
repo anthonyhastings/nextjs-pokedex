@@ -1,11 +1,6 @@
 {
-  "extends": [
-    "stylelint-config-standard",
-    "stylelint-config-prettier"
-  ],
-  "plugins": [
-    "stylelint-order"
-  ],
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "plugins": ["stylelint-order"],
   "rules": {
     "color-hex-length": "short",
     "order/properties-alphabetical-order": true
@@ -16,7 +11,5 @@
       "customSyntax": "@stylelint/postcss-css-in-js"
     }
   ],
-  "ignoreFiles": [
-    "**/*.{js,jsx,mjs}"
-  ]
+  "ignoreFiles": ["**/*.{js,jsx,mjs}"]
 }

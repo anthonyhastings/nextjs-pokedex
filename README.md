@@ -90,4 +90,5 @@ Page                                       Size     First Load JS
 - [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
 - [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props)
 - [Server Side Rendering (SSR) vs Static Generation (SSG)](https://vercel.com/blog/nextjs-server-side-rendering-vs-static-generation)
+- [Mock Network When Using Next.js `getServerSideProps` Call](https://glebbahmutov.com/blog/mock-network-from-server/)
 - [PokeAPI](https://pokeapi.co/)

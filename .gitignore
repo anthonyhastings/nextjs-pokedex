@@ -104,3 +104,7 @@ dist
 
 # Mac finder file
 .DS_Store
+
+# Cypress
+cypress/screenshots
+cypress/videos

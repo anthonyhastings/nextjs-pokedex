@@ -69,7 +69,12 @@ const PokedexListingsPage = ({ kantoPokemon }) => {
               />
             </GridItemImage>
             <Link href={`/pokemon/${pokemon.slug}`} passHref>
-              <PrimaryButtonLink size="medium">View Entry</PrimaryButtonLink>
+              <PrimaryButtonLink
+                size="medium"
+                aria-label={`View Entry for ${pokemon.name}`}
+              >
+                View Entry
+              </PrimaryButtonLink>
             </Link>
           </GridItem>
         ))}

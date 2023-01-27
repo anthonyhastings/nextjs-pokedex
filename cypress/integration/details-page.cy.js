@@ -47,10 +47,12 @@ describe('Details Page', () => {
           },
         ],
         sprites: {
-          front_default: 'https://www.placecage.com/c/96/96',
+          front_default:
+            'https://static.wikia.nocookie.net/filthy-frank/images/8/8d/516c32f08e03d.png/revision/latest?cb=20151019010624',
           other: {
             'official-artwork': {
-              front_default: 'https://www.placecage.com/c/512/512',
+              front_default:
+                'https://images.squarespace-cdn.com/content/v1/59b4328f49fc2b50d08701fb/1565322410979-QXEJK0ULD5NK5LQCKEZD/nicolas_cage_art?format=500w',
             },
           },
         },

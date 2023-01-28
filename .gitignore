@@ -108,3 +108,6 @@ dist
 # Cypress
 cypress/screenshots
 cypress/videos
+
+# Vercel
+.vercel/

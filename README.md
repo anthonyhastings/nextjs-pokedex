@@ -83,6 +83,24 @@ Page                                       Size     First Load JS
 ●  (SSG)         automatically generated as static HTML + JSON (uses getStaticProps)
 ```
 
+## How Do CI Deployments Work?
+
+- [Vercel Concept - Git](https://vercel.com/docs/concepts/git)
+- [Vercel - "Staging" Preview Phase](https://vercel.com/docs/concepts/git#multiple-preview-phases)
+- [Vercel - Using GitHub Actions With Vercel](https://vercel.com/guides/how-can-i-use-github-actions-with-vercel)
+
+This project uses Vercel for hosting deployments. Out of the box, Vercel offers a Git integration that provides a zero configuration way of linking branches to deployments; the trunk branch to production deployments and any other branch to preview deployments.
+
+Every time a pull/merge request is made, Vercel will create a unique preview deployment, allowing you to view the changes in a preview environment before merging to your trunk branch. When merging to the trunk branch, a production deployment is made making the latest changes available to assigned custom domains automatically. Vercel offers instant rollbacks to former deployments thus allowing a way to rollback that isn't tied to a lengthy build of a revert pull/merge request.
+
+For the purposes of learning, this project has disabled the git integration (see `vercel.json`) and is using the Vercel CLI via CI/CD to provide the same functionality; pulling environment variables for the environment being built for, building the application (server-side rendering as serverless functions, everything else as static assets), then uploading those assets to Vercel and triggering a deployment.
+
+There are some advantages to using the Vercel CLI over their Git integration:
+
+- Source code is not sent to Vercel which might be a requirement for certain projects of a highly sensitive nature.
+- Workflows can be enacted incase there are additional steps to be done before any vercel deployments should take place.
+- Repositories may be inaccessible to Vercel and their git integration; particularly those behind a VPN. This makes CI/CD usage with the Vercel CLI the only way to still avail of Vercel and it's capabilities.
+
 ## Further Information
 
 - [What is Next.js?](https://nextjs.org/learn/foundations/about-nextjs/what-is-nextjs)

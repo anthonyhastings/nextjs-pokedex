@@ -1,9 +1,8 @@
 name: Vercel Preview Deploy
 
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
+    types: [reopened, opened, synchronize, edited]
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -42,4 +41,62 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        id: deploy-artifacts
+        run: |
+          echo "DEPLOY_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+
+      - name: Upsert Pull Request Comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const COMMENT_PREFIX = 'Preview URL:';
+            const commentBody = `${COMMENT_PREFIX} [${{ steps.deploy-artifacts.outputs.DEPLOY_URL }}](${{ steps.deploy-artifacts.outputs.DEPLOY_URL }})`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const existingComment = comments.find((comment) => {
+              return comment.body.startsWith(COMMENT_PREFIX);
+            });
+
+            if (existingComment) {
+              return await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody,
+              });
+            }
+
+            return await github.rest.issues.createComment({
+               issue_number: context.issue.number,
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               body: commentBody,
+            });
+
+      - name: Create Deployment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const { data: deployment } = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: '${{ github.head_ref }}',
+              environment: 'Preview',
+              required_contexts: [],
+              auto_merge: false,
+            });
+
+            return await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.id,
+              state: 'success',
+              environment_url: '${{ steps.deploy-artifacts.outputs.DEPLOY_URL }}',
+            });

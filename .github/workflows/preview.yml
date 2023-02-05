@@ -5,6 +5,7 @@ on:
     types: [reopened, opened, synchronize, edited]
 
 env:
+  CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/.cypress
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
@@ -22,8 +23,18 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
+      - name: Restore Cypress Binary
+        uses: actions/cache@v3
+        with:
+          path: .cypress
+          key: cypress-binary-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
       - name: Install Application Dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: |
+          yarn install --frozen-lockfile --prefer-offline
+          yarn cypress version
+          yarn cypress cache path
+          yarn cypress cache list
 
       - name: Formatting
         run: yarn run lint:format
@@ -33,6 +44,18 @@ jobs:
 
       - name: Lint Styles
         run: yarn run lint:css
+
+      - name: Run Cypress Integration Tests
+        run: yarn run test:integration:headless
+
+      - name: Store Test Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-test-artifacts
+          retention-days: 5
+          path: |
+            cypress/screenshots/
+            cypress/videos/
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}

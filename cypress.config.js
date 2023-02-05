@@ -1,16 +1,15 @@
 const { defineConfig } = require('cypress');
 const http = require('http');
 const next = require('next');
-const { rest } = require('msw');
-const { setupServer } = require('msw/node');
 
-const mockServer = setupServer();
+const testType = process.env.TEST_TYPE ?? 'integration';
 
 const startNextServer = async () => {
   const app = next({ dev: true });
   const handleNextRequests = app.getRequestHandler();
 
   await app.prepare();
+  console.log('> Next.js server started');
 
   const customServer = new http.Server(async (req, res) => {
     return handleNextRequests(req, res);
@@ -20,41 +19,51 @@ const startNextServer = async () => {
     customServer.listen(3000, (err) => {
       if (err) return reject(err);
 
-      console.log('> Ready on http://localhost:3000');
+      console.log('> Listening on http://localhost:3000');
       resolve();
     });
   });
 };
 
-module.exports = defineConfig({
-  e2e: {
-    baseUrl: 'http://localhost:3000',
-    specPattern: 'cypress/integration/**/*.cy.{js,jsx,ts,tsx}',
-    setupNodeEvents: async (on) => {
-      await startNextServer();
-      console.log('Next.js server started.');
+const integrationConfig = {
+  baseUrl: 'http://localhost:3000',
+  specPattern: 'cypress/integration/**/*.cy.{js,jsx,ts,tsx}',
+  setupNodeEvents: async (on) => {
+    const { rest } = require('msw');
+    const { setupServer } = require('msw/node');
+    const mockServer = setupServer();
 
-      on('task', {
-        mswRequest({ method, path, statusCode, body }) {
-          console.log('mswRequest - Mocking route.');
-          const mswMethodName = method.toLowerCase();
+    await startNextServer();
 
-          mockServer.listen();
+    on('task', {
+      mswRequest({ method, path, statusCode, body }) {
+        console.log(`mswRequest - Mocking route - [${method}] ${path}`);
+        const mswMethodName = method.toLowerCase();
 
-          mockServer.use(
-            rest[mswMethodName](path, (req, res, ctx) => {
-              return res(ctx.status(statusCode), ctx.json(body));
-            })
-          );
+        mockServer.listen();
 
-          return null;
-        },
-        mswClear() {
-          console.log('mswClear - Restoring handlers.');
-          mockServer.restoreHandlers();
-          return null;
-        },
-      });
-    },
+        mockServer.use(
+          rest[mswMethodName](path, (req, res, ctx) => {
+            return res(ctx.status(statusCode), ctx.json(body));
+          })
+        );
+
+        return null;
+      },
+      mswClear() {
+        console.log('mswClear - Restoring handlers.');
+        mockServer.restoreHandlers();
+        return null;
+      },
+    });
   },
+};
+
+const endToEndConfig = {
+  baseUrl: 'https://nextjs-pokedex-lemon.vercel.app/',
+  specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+};
+
+module.exports = defineConfig({
+  e2e: testType === 'integration' ? integrationConfig : endToEndConfig,
 });

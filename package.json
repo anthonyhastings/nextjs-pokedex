@@ -5,7 +5,7 @@
     "build": "next build",
     "build:analyze": "ANALYZE=true yarn build",
     "lint": "time npm-run-all --parallel --print-label --continue-on-error lint:css lint:js",
-    "lint:format": "prettier --check .",
+    "lint:format": "time prettier --check .",
     "lint:js": "time next lint --ext .js --ext .jsx --ext .mjs",
     "lint:js:prettier-check": "eslint-config-prettier pages/index.jsx",
     "lint:js:print-config": "eslint --print-config pages/index.jsx",
@@ -13,7 +13,11 @@
     "lint:css:prettier-check": "stylelint-config-prettier-check",
     "lint:css:print-config": "stylelint --print-config pages/index.jsx",
     "prepare": "husky install",
-    "start": "next start"
+    "start": "next start",
+    "test:e2e:gui": "TEST_TYPE=e2e cypress open --e2e --browser=chrome",
+    "test:e2e:headless": "TEST_TYPE=e2e cypress run --e2e --browser=chrome",
+    "test:integration:gui": "TEST_TYPE=integration cypress open --e2e --browser=chrome",
+    "test:integration:headless": "TEST_TYPE=integration cypress run --e2e --browser=chrome"
   },
   "dependencies": {
     "@emotion/react": "11.7.0",

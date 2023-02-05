@@ -3,7 +3,7 @@
  */
 const nextConfig = {
   eslint: {
-    dirs: ['components', 'pages', 'services', 'utils'],
+    dirs: ['components', 'cypress', 'pages', 'services', 'utils'],
     ignoreDuringBuilds: false,
   },
   webpack: (config) => {

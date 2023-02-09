@@ -62,6 +62,7 @@ const integrationConfig = {
 const endToEndConfig = {
   baseUrl: 'https://nextjs-pokedex-lemon.vercel.app/',
   specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+  trashAssetsBeforeRuns: true,
 };
 
 module.exports = defineConfig({

@@ -6,6 +6,7 @@ on:
       - main
 
 env:
+  CYPRESS_CACHE_FOLDER: ${{ github.workspace }}/.cypress
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
@@ -14,7 +15,7 @@ jobs:
     name: Deploy Production
     runs-on: ubuntu-latest
     steps:
-      - name: Clone repository
+      - name: Clone Repository
         uses: actions/checkout@v3
 
       - name: Set Node.js Version
@@ -24,7 +25,11 @@ jobs:
           cache: 'yarn'
 
       - name: Install Application Dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: |
+          yarn install --frozen-lockfile --prefer-offline
+          yarn cypress version
+          yarn cypress cache path
+          yarn cypress cache list
 
       - name: Formatting
         run: yarn run lint:format
@@ -67,3 +72,15 @@ jobs:
               state: 'success',
               environment_url: '${{ steps.deploy-artifacts.outputs.DEPLOY_URL }}',
             });
+
+      - name: Run Cypress End-To-End Tests
+        run: yarn run test:e2e:headless
+
+      - name: Store End-To-End Test Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: end-to-end-test-artifacts
+          retention-days: 5
+          path: |
+            cypress/screenshots/
+            cypress/videos/

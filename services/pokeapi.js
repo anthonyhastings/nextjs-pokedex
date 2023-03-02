@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js-light';
-import axios from 'axios';
 
 const BASE_URL = 'https://pokeapi.co/api/v2';
 
@@ -40,9 +39,7 @@ const getEnglishRecord = (records) => {
 const extendWithTypes = async (pokemon, typeRecords) => {
   const types = await Promise.all(
     typeRecords.map(async ({ type: typeRecord }) => {
-      const typeResponse = await axios
-        .get(typeRecord.url)
-        .then((response) => response.data);
+      const typeResponse = await (await fetch(typeRecord.url)).json();
 
       return {
         slug: typeRecord.name,
@@ -58,12 +55,12 @@ const extendWithTypes = async (pokemon, typeRecords) => {
 };
 
 export const fetchPokemon = async ({ slug, includeTypes = false }) => {
-  const pokemonResponse = axios.get(`${BASE_URL}/pokemon/${slug}`);
-  const speciesResponse = axios.get(`${BASE_URL}/pokemon-species/${slug}/`);
+  const pokemonResponse = fetch(`${BASE_URL}/pokemon/${slug}`);
+  const speciesResponse = fetch(`${BASE_URL}/pokemon-species/${slug}/`);
 
   const [pokemonData, speciesData] = await Promise.all([
-    pokemonResponse.then((response) => response.data),
-    speciesResponse.then((response) => response.data),
+    await (await pokemonResponse).json(),
+    await (await speciesResponse).json(),
   ]);
 
   const description = getEnglishRecord(
@@ -102,9 +99,10 @@ export const fetchPokemon = async ({ slug, includeTypes = false }) => {
 };
 
 export const fetchKantoPokemon = async () => {
-  const pokemonData = await axios
-    .get(`${BASE_URL}/pokemon?limit=151`)
-    .then((response) => response.data);
+  const apiURL = new URL(`${BASE_URL}/pokemon`);
+  apiURL.search = new URLSearchParams({ limit: 151 });
+
+  const pokemonData = await (await fetch(apiURL)).json();
 
   return await Promise.all(
     pokemonData.results.map((record) =>

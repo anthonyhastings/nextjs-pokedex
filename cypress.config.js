@@ -1,6 +1,15 @@
 const { defineConfig } = require('cypress');
 const http = require('http');
 const next = require('next');
+const { fetch, Headers, Request, Response } = require('node-fetch');
+
+// Polyfilling fetch. Native node fetch isn't working out of the box with MSW.
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch;
+  globalThis.Headers = Headers;
+  globalThis.Request = Request;
+  globalThis.Response = Response;
+}
 
 const testType = process.env.TEST_TYPE ?? 'integration';
 

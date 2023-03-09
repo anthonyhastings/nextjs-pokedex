@@ -105,9 +105,15 @@ describe('Details Page', () => {
 
   it('renders pokemon with number and name', () => {
     cy.visit('/pokemon/nic-cage');
+
     cy.findByRole('heading', { name: /#654321 - nic cage/i }).should(
       'be.visible'
     );
+
     cy.findByText(/psychic/i).should('be.visible');
+
+    cy.percySnapshot('(Integration) Details page responsive test', {
+      widths: [600, Cypress.config('viewportWidth')],
+    });
   });
 });

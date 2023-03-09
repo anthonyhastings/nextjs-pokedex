@@ -1,7 +1,11 @@
+const http = require('node:http');
 const { defineConfig } = require('cypress');
-const http = require('http');
 const next = require('next');
+const { loadEnvConfig } = require('@next/env');
 const { fetch, Headers, Request, Response } = require('node-fetch');
+
+// Load environment variables the same way Next.js does.
+loadEnvConfig(__dirname);
 
 // Polyfilling fetch. Native node fetch isn't working out of the box with MSW.
 if (!globalThis.fetch) {

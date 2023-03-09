@@ -14,10 +14,10 @@
     "lint:css:print-config": "stylelint --print-config pages/index.jsx",
     "prepare": "husky install",
     "start": "next start",
-    "test:e2e:gui": "TEST_TYPE=e2e cypress open --e2e --browser=chrome",
-    "test:e2e:headless": "TEST_TYPE=e2e cypress run --e2e --browser=chrome",
-    "test:integration:gui": "TEST_TYPE=integration cypress open --e2e --browser=chrome",
-    "test:integration:headless": "TEST_TYPE=integration cypress run --e2e --browser=chrome"
+    "test:e2e:gui": "TEST_TYPE=e2e percy exec -- cypress open --e2e --browser=chrome",
+    "test:e2e:headless": "TEST_TYPE=e2e percy exec -- cypress run --e2e --browser=chrome",
+    "test:integration:gui": "TEST_TYPE=integration percy exec -- cypress open --e2e --browser=chrome",
+    "test:integration:headless": "TEST_TYPE=integration percy exec -- cypress run --e2e --browser=chrome"
   },
   "dependencies": {
     "@emotion/react": "11.7.0",
@@ -32,6 +32,8 @@
   "devDependencies": {
     "@emotion/eslint-plugin": "11.7.0",
     "@next/bundle-analyzer": "12.0.7",
+    "@percy/cli": "^1.20.3",
+    "@percy/cypress": "^3.1.2",
     "@stylelint/postcss-css-in-js": "0.37.2",
     "@testing-library/cypress": "8.0.7",
     "cypress": "11.0.1",

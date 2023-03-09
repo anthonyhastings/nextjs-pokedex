@@ -16,8 +16,8 @@
     "start": "next start",
     "test:e2e:gui": "TEST_TYPE=e2e percy exec -- cypress open --e2e --browser=chrome",
     "test:e2e:headless": "TEST_TYPE=e2e percy exec -- cypress run --e2e --browser=chrome",
-    "test:integration:gui": "TEST_TYPE=integration percy exec -- cypress open --e2e --browser=chrome",
-    "test:integration:headless": "TEST_TYPE=integration percy exec -- cypress run --e2e --browser=chrome"
+    "test:integration:gui": "TEST_TYPE=integration cypress open --e2e --browser=chrome",
+    "test:integration:headless": "TEST_TYPE=integration cypress run --e2e --browser=chrome"
   },
   "dependencies": {
     "@emotion/react": "11.7.0",

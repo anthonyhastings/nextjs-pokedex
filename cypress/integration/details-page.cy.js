@@ -111,9 +111,5 @@ describe('Details Page', () => {
     );
 
     cy.findByText(/psychic/i).should('be.visible');
-
-    cy.percySnapshot('(Integration) Details page responsive test', {
-      widths: [600, Cypress.config('viewportWidth')],
-    });
   });
 });

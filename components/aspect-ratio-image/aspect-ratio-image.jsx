@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 const AspectRatioWrapper = styled.div`
   aspect-ratio: ${({ ratio }) => ratio};
   font-size: 0;
+  overflow-y: hidden;
   position: relative;
 
   > * {
